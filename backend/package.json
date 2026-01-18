@@ -8,6 +8,7 @@
     "dev": "nodemon server.js",
     "seed": "node scripts/seedDatabase.js",
     "test": "node scripts/testRoutes.js"
+    
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

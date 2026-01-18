@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: '/api',
+  baseURL: 'http://localhost:5000/api',
   headers: {
     'Content-Type': 'application/json',
   },
@@ -25,15 +25,13 @@ api.interceptors.response.use(
   async (error) => {
     const originalRequest = error.config
 
-    // If 401 and not already retrying
     if (error.response?.status === 401 && !originalRequest._retry) {
       originalRequest._retry = true
 
       try {
         const refreshToken = localStorage.getItem('refreshToken')
         if (refreshToken) {
-          const response = await axios.post('/api/user/refresh', { refreshToken })
-          // Backend wraps response in { success, message, data: { token } }
+          const response = await api.post('/user/refresh', { refreshToken })
           const { token } = response.data.data
           localStorage.setItem('token', token)
           originalRequest.headers.Authorization = `Bearer ${token}`

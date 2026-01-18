@@ -107,9 +107,16 @@ const seedData = async () => {
       { name: 'Amna', email: 'amna@lms.com' }
     ];
 
-    const students = await User.create(
-      studentData.map(s => ({ ...s, password: 'student123', role: 'student' }))
-    );
+const students = await User.create(
+  studentData.map(s => ({
+    name: s.name,
+    email: s.email,
+    password: 'student123',
+    role: 'student'
+  }))
+);
+
+
     console.log(`   ✓ ${students.length} Students created`);
 
     // Create Classes - Software Engineering Subjects
